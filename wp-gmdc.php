@@ -48,13 +48,7 @@ add_action('wp_enqueue_scripts', 'clx_gmdc_load_res');
  * @return string A wp_gmdc_.
  */
 add_shortcode('wp_gmdc_button', function ($attrs) {
-    $attrs = shortcode_atts(array(
-        'text'   => 'OK',
-        'color'  => '#424242',
-        'width'  => '#424242',
-        'height' => '#424242',
-        'ripple' => true
-    ), $attrs);
+    $attrs = shortcode_atts(array('text' => 'OK', 'color' => '#424242', 'width' => '#424242', 'height' => '#424242', 'ripple' => true), $attrs);
 
     // @formatter:off
     return '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored '
@@ -76,14 +70,7 @@ add_shortcode('wp_gmdc_button', function ($attrs) {
  * @return string A wp_gmdc_.
  */
 add_shortcode('wp_gmdc_button_flat', function ($attrs) {
-    $attrs = shortcode_atts(array(
-        'text'      => 'OK',
-        'text-size' => '18px',
-        'color'     => '#424242',
-        'width'     => '#424242',
-        'height'    => '#424242',
-        'ripple'    => true
-    ), $attrs);
+    $attrs = shortcode_atts(array('text' => 'OK', 'text-size' => '18px', 'color' => '#424242', 'width' => '#424242', 'height' => '#424242', 'ripple' => true), $attrs);
 
     // @formatter:off
     return '<button class="mdl-button mdl-js-button '
@@ -104,13 +91,7 @@ add_shortcode('wp_gmdc_button_flat', function ($attrs) {
  * @return string A wp_gmdc_.
  */
 add_shortcode('wp_gmdc_fab', function ($attrs) {
-    $attrs = shortcode_atts(array(
-        'symbol'    => '+',
-        'text-size' => '18px',
-        'color'     => '#424242',
-        'colored'   => true,
-        'ripple'    => true
-    ), $attrs);
+    $attrs = shortcode_atts(array('symbol' => '+', 'text-size' => '18px', 'color' => '#424242', 'colored' => true, 'ripple' => true), $attrs);
 
     // @formatter:off
     return '<button class="mdl-button mdl-js-button mdl-button--fab '
@@ -133,18 +114,7 @@ add_shortcode('wp_gmdc_fab', function ($attrs) {
  * @return string A wp_gmdc_.
  */
 add_shortcode('wp_gmdc_dialog', function ($attrs) {
-    $attrs = shortcode_atts(array(
-        'title'           => 'Info',
-        'content'         => 'This is a GDM Dialog',
-        'width'           => '240px',
-        'height'          => '120px',
-        'button-text'     => 'Show',
-        'button-positive' => '',
-        'button-negative' => '',
-        'button-neutral'  => '',
-        'dismissable'     => true,
-        'modal'           => true
-    ), $attrs);
+    $attrs = shortcode_atts(array('title' => 'Info', 'content' => 'This is a GDM Dialog', 'width' => '240px', 'height' => '120px', 'button-text' => 'Show', 'button-positive' => '', 'button-negative' => '', 'button-neutral' => '', 'dismissable' => true, 'modal' => true), $attrs);
 
     // @formatter:off
     return '<button id="show-dialog" type="button" class="mdl-button">'
@@ -191,13 +161,8 @@ add_shortcode('wp_gmdc_dialog', function ($attrs) {
  * @return string .
  */
 add_shortcode('wp_gmdc_tooltip', function ($attrs) {
-    $uid   = 'x' . uniqid();
-    $attrs = shortcode_atts(array(
-        'id'       => $uid,
-        'large'    => '',
-        'icon'     => 'add',
-        'tip_text' => 'tip_text'
-    ), $attrs);
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 'large' => '', 'icon' => 'add', 'tip_text' => 'tip_text'), $attrs);
 
     // @formatter:off
     return '<div id="' . $attrs["id"] . '" class="icon material-icons">' . $attrs["icon"] . '</div>
@@ -218,16 +183,8 @@ add_shortcode('wp_gmdc_tooltip', function ($attrs) {
  * @return string .
  */
 add_shortcode('wp_gmdc_slider', function ($attrs) {
-    $uid   = 'x' . uniqid();
-    $attrs = shortcode_atts(array(
-        'id'    => $uid,
-        'width' => '300px',
-        'min'   => '1',
-        'max'   => '100',
-        'value' => '40',
-        'step'  => '1',
-        'type'  => 'range'
-    ), $attrs);
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 'width' => '300px', 'min' => '1', 'max' => '100', 'value' => '40', 'step' => '1', 'type' => 'range'), $attrs);
 
     // @formatter:off
     return '<p style="width:' . $attrs["width"] . '">
@@ -243,7 +200,6 @@ add_shortcode('wp_gmdc_slider', function ($attrs) {
 });
 
 
-
 /**
  * Constructs a Card.
  *
@@ -256,18 +212,8 @@ add_shortcode('wp_gmdc_slider', function ($attrs) {
  * @return string .
  */
 add_shortcode('wp_gmdc_card', function ($attrs) {
-    $uid   = 'x' . uniqid();
-    $attrs = shortcode_atts(array(
-        'width'            => '512px',
-        'height'           => '176px',
-        'img_url'          => 'https://maxcdn.icons8.com/Share/icon/Logos//google_logo1600.png',
-        'title'            => 'Title',
-        'title_color'      => '#212121',
-        'content'          => 'Content',
-        'content_color'    => '#212121',
-        'button_text'      => '',
-        'menu_button_icon' => ''
-    ), $attrs);
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('width' => '512px', 'height' => '176px', 'img_url' => 'https://maxcdn.icons8.com/Share/icon/Logos//google_logo1600.png', 'title' => 'Title', 'title_color' => '#212121', 'content' => 'Content', 'content_color' => '#212121', 'button_text' => '', 'menu_button_icon' => ''), $attrs);
 
     // @formatter:off
     return '<style>
@@ -320,17 +266,9 @@ add_shortcode('wp_gmdc_card', function ($attrs) {
  * @return string .
  */
 add_shortcode('wp_gmdc_snackbar', function ($attrs) {
-    $uid   = 'x' . uniqid();
-    $uid2   = 'x' . uniqid();
-    $attrs = shortcode_atts(array(
-        'id'                => $uid,
-        's_id'               => $uid2,
-        'button_text'             => 'OK',
-        'snack_text'            => 'Some Text',
-        'snack_button_text'          => 'Action',
-        'snackbar_color'      => '#212121',
-        'timeout'    => '2000'
-    ), $attrs);
+    $uid = 'x' . uniqid();
+    $uid2 = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 's_id' => $uid2, 'button_text' => 'OK', 'snack_text' => 'Some Text', 'snack_button_text' => 'Action', 'snackbar_color' => '#212121', 'timeout' => '2000'), $attrs);
 
     // @formatter:off
     return '<button id="' . $attrs["id"] . '" class="mdl-button mdl-js-button mdl-button--raised" type="button">' . $attrs["button_text"] . '</button>
@@ -375,17 +313,9 @@ add_shortcode('wp_gmdc_snackbar', function ($attrs) {
  * @return string .
  */
 add_shortcode('wp_gmdc_toast', function ($attrs) {
-    $uid   = 'x' . uniqid();
-    $uid2   = 'x' . uniqid();
-    $attrs = shortcode_atts(array(
-        'id'            => $uid,
-        's_id'           => $uid2,
-        'button_text'          => 'OK',
-        'snack_text'            => 'Some Text',
-        'snack_button_text'          => 'Action',
-        'toast_color'      => '#212121',
-        'timeout'    => '2000'
-    ), $attrs);
+    $uid = 'x' . uniqid();
+    $uid2 = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 's_id' => $uid2, 'button_text' => 'OK', 'toast_text' => 'Some Text', 'snack_button_text' => 'Action', 'toast_color' => '#212121', 'timeout' => '2000'), $attrs);
 
     // @formatter:off
     return '<button id="' . $attrs["id"] . '" class="mdl-button mdl-js-button mdl-button--raised" type="button">' . $attrs["button_text"] . '</button>
@@ -421,11 +351,8 @@ add_shortcode('wp_gmdc_toast', function ($attrs) {
  * @return string .
  */
 add_shortcode('wp_gmdc_progressbar', function ($attrs) {
-    $uid   = 'x' . uniqid();
-    $attrs = shortcode_atts(array(
-        'id'            => $uid,
-        'progress'           => $uid2,
-        'color'           => "#DDDEEE"
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 'progress' => '0', 'color' => "#DDDEEE"
 
     ), $attrs);
 
