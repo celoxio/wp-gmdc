@@ -3,7 +3,7 @@
 Plugin Name: WP-GMDC
 Plugin URI: https://celox.io
 Description: Get access to 15 Google Material Design components.
-Version: 0.0.1
+Version: 0.0.4
 Author: Martin Pfeffer
 Author URI: https://celox.io
 License: Apache 2.0
@@ -344,7 +344,9 @@ add_shortcode('wp_gmdc_toast', function ($attrs) {
  * Constructs a default ProgressBar.
  *
  * Example:
- * [wp_gmdc_progressbar id="x101" progress="30" color="#DDDEEE"]
+ * [wp_gmdc_progressbar id="x101" progress="30"]
+ * or
+ * [wp_gmdc_progressbar id="x102" progress="14" buffer="60"]
  *
  * @param string $attrs The configuration of the wp_gmdc_tooltip.
  *
@@ -352,16 +354,156 @@ add_shortcode('wp_gmdc_toast', function ($attrs) {
  */
 add_shortcode('wp_gmdc_progressbar', function ($attrs) {
     $uid = 'x' . uniqid();
-    $attrs = shortcode_atts(array('id' => $uid, 'progress' => '0', 'color' => "#DDDEEE"
-
-    ), $attrs);
-
-    // @formatter:off
-    return '<div id="' . $attrs["id"] . '" class="mdl-progress mdl-js-progress"></div>
+    $attrs = shortcode_atts(array('id' => $uid, 'progress' => '0', 'buffer' => ""), $attrs);
+    if ($attrs["buffer"] === '') {
+        return '<div id="' . $attrs["id"] . '" class="mdl-progress mdl-js-progress"></div>
 <script>
   document.querySelector("#' . $attrs["id"] . '").addEventListener("mdl-componentupgraded", function() {
     this.MaterialProgress.setProgress(' . $attrs["progress"] . ');
   });
 </script>';
+    } else {
+        return '<div id="' . $attrs["id"] . '" class="mdl-progress mdl-js-progress"></div>
+<script>
+  document.querySelector("#' . $attrs["id"] . '").addEventListener("mdl-componentupgraded", function() {
+    this.MaterialProgress.setProgress(' . $attrs["progress"] . ');
+    this.MaterialProgress.setBuffer(' . $attrs["buffer"] . ');
+  });
+</script>';
+    }
+});
+
+
+/**
+ * Constructs a indeterminate ProgressBar.
+ *
+ * Example:
+ * [wp_gmdc_progressbar_indeterminate]
+ *
+ * @param string $attrs The configuration of the wp_gmdc_tooltip.
+ *
+ * @return string .
+ */
+add_shortcode('wp_gmdc_progressbar_indeterminate', function ($attrs) {
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid), $attrs);
+    return '<div id="' . $attrs["id"] . '" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>';
+    // @formatter:on
+});
+
+/**
+ * Constructs a Spinner.
+ *
+ * Example:
+ * [wp_gmdc_spinner]
+ * or
+ * [wp_gmdc_spinner change_color="true"]
+ *
+ * @param string $attrs The configuration of the wp_gmdc_tooltip.
+ *
+ * @return string .
+ */
+add_shortcode('wp_gmdc_spinner', function ($attrs) {
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 'change_color' => 'false'), $attrs);
+    // @formatter:on
+    if ($attrs['change_color'] === 'false') {
+        return '<!-- MDL Spinner Component with Single Color -->
+    <div id="' . $attrs["id"] . '" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>';
+    } else {
+        return '<div id="' . $attrs["id"] . '" class="mdl-spinner mdl-js-spinner is-active"></div>';
+    }
+    // @formatter:on
+});
+
+/**
+ * Constructs a Menu.
+ *
+ * Example:
+ * [wp_gmdc_list id="list"]
+ * or
+ * [wp_gmdc_menu id="menu2" h_pos="right" v_pos="top"]
+ *
+ * @param string $attrs The configuration of the wp_gmdc_tooltip.
+ *
+ * @return string .
+ */
+add_shortcode('wp_gmdc_list', function ($attrs) {
+    $args = pass_array_parse_atts($attrs, array('arg' => array()));
+    $res = '<style>
+.list-item {  width: 300px; }
+</style>
+<ul class="list-item mdl-list">';
+    foreach ($args['arg'] as $key => $value) {
+        $res .= '<li class="mdl-list__item">
+    <span class="mdl-list__item-primary-content">
+    ' . $key . ' # ' . $value . '
+    </span>
+  </li>';
+    }
+    return $res . '</ul>';
+    // @formatter:on
+});
+
+function pass_array_parse_atts($atts, $expected) {
+    $args = array();
+    foreach ($atts as $index => $att) {
+        if (preg_match('#^(.+)\((.+)\)=["\']?(.+)$#', $att, $match)) {
+            // We have an array attribute where $att is something like: foo(1)="bar"
+            $args[$match[1]][$match[2]] = rtrim(rtrim($match[3], '"'), "'");
+        } else {
+            // We have a simple attribute where $att is something like: foo="bar"
+            list($key, $value) = explode('=', $att);
+            $args[$key] = $value;
+        }
+    }
+    return wp_parse_args($args, $expected);
+}
+
+
+/**
+ * Constructs a Header with Tabs.
+ *
+ * Example:
+ * [wp_gmdc_header_tabs]
+ *
+ * @param string $attrs The configuration of the wp_gmdc_tooltip.
+ *
+ * @return string .
+ */
+add_shortcode('wp_gmdc_header_tabs', function ($attrs) {
+    $uid = 'x' . uniqid();
+    $attrs = shortcode_atts(array('id' => $uid, 'items' => ''), $attrs);
+    // @formatter:on
+    return '<!-- Simple header with fixed tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Title</span>
+    </div>
+    <!-- Tabs -->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
+      <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
+      <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+  </div>
+  <main class="mdl-layout__content">
+    <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </section>
+  </main>
+</div>';
     // @formatter:on
 });
